@@ -4,17 +4,26 @@ class SV:
         self.b = b
         if a>0 and b>=0:
             self.match = lambda n : (n % self.a) == self.b
+            self.b = b % a
         else:
             self.match = lambda n : False
         
-    def dump(self, start = 0, n = 100):
+    def dump(self, start = 0, n = 101, chars=".■", ruler=False):
         result = ""
         for i in range(start,start+n):
             if (self.match(i))==True:
-                result = result + "■"
+                result = result + chars[1]
             else:
-                result = result + "·"
+                result = result + chars[0]
         print (result)
+        if ruler:
+            result = ""
+            i = start
+            while i<start+start+n:
+                if i % 5 == 0:
+                    result+=(f"{i:<5}")
+                i += 1
+            print (result)
 
     def __neg__(self):
         # print("negate")
