@@ -1,3 +1,5 @@
+# Minimal implementation of the Iannis Xenakis sieves and their operations
+
 class SV:
     def __init__(self,a,b):
         self.a = a
@@ -26,25 +28,21 @@ class SV:
             print (result)
 
     def __neg__(self):
-        # print("negate")
         result = SV(0,0)
         result.match = lambda n : (not (self.match(n)))
         return result
     
     def __mul__(self, other):
-        # print(f"intersection {self.a},{self.b} * {other.a},{other.b}")
         result = SV(0,0)
         result.match = lambda n : (self.match(n) and other.match(n))
         return result
     
     def __add__(self, other):
-        # print(f"union {self.a},{self.b} + {other.a},{other.b}")
         result = SV(0,0)
         result.match = lambda n : (self.match(n) or other.match(n))
         return result
     
     def __xor__(self, other):
-        # print("xor")
         result = SV(0,0)
         result.match = lambda n : (self.match(n) ^ other.match(n))
         return result
