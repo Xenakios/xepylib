@@ -21,7 +21,7 @@ class SV:
         if ruler:
             result = ""
             i = start
-            while i<start+start+n:
+            while i<start+n:
                 if i % 5 == 0:
                     result+=(f"{i:<5}")
                 i += 1
