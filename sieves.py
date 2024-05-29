@@ -5,15 +5,15 @@ class SV:
         self.a = a
         self.b = b
         if a>0 and b>=0:
-            self.match = lambda n : (n % self.a) == self.b
+            self.contains = lambda n : (n % self.a) == self.b
             self.b = b % a
         else:
-            self.match = lambda n : False
+            self.contains = lambda n : False
         
     def dump(self, start = 0, n = 101, chars=".■", ruler=False):
         result = ""
         for i in range(start,start+n):
-            if (self.match(i))==True:
+            if (self.contains(i))==True:
                 result = result + chars[1]
             else:
                 result = result + chars[0]
@@ -29,31 +29,31 @@ class SV:
 
     def __neg__(self):
         result = SV(0,0)
-        result.match = lambda n : (not (self.match(n)))
+        result.contains = lambda n : (not (self.contains(n)))
         return result
     
     def __mul__(self, other):
         result = SV(0,0)
-        result.match = lambda n : (self.match(n) and other.match(n))
+        result.contains = lambda n : (self.contains(n) and other.contains(n))
         return result
     
     def __add__(self, other):
         result = SV(0,0)
-        result.match = lambda n : (self.match(n) or other.match(n))
+        result.contains = lambda n : (self.contains(n) or other.contains(n))
         return result
     
     def __xor__(self, other):
         result = SV(0,0)
-        result.match = lambda n : (self.match(n) ^ other.match(n))
+        result.contains = lambda n : (self.contains(n) ^ other.match(n))
         return result
     
     def toSequenceList(self,start,end):
-        return [i for i in range(start,end) if self.match(i)]
+        return [i for i in range(start,end) if self.contains(i)]
     
     def asGenerator(self,start):
         """Infinite generator from start"""
         while True:
-            if self.match(start):
+            if self.contains(start):
                 yield start
             start += 1
     
