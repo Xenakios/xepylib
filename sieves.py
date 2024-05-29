@@ -50,18 +50,20 @@ class SV:
     def toSequenceList(self,start,end):
         return [i for i in range(start,end) if self.match(i)]
     
+    def asGenerator(self,start):
+        """Infinite generator from start"""
+        while True:
+            if self.match(start):
+                yield start
+            start += 1
+    
     def toIntervalList(self,start,end):
-        # maybe this could be implemented better...
-        result = []
-        previous = None
-        for i in range(start,end):
-            if self.match(i):
-                if previous == None:
-                    previous = i
-                else:
-                    result.append(i - previous)
-                    previous = i
-        return result
+        # Seems inefficient to get the temp list first, but it's fast enough
+        # up to hundreds of thousands of entries
+        temp = self.toSequenceList(start,end)
+        if len(temp)<2:
+            return []
+        return [temp[i+1]-temp[i] for i in range(0,len(temp)-1)]
 
 if __name__ == "__main__":
     pass
