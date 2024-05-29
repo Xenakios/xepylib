@@ -48,12 +48,8 @@ class SV:
         return result
     
     def toSequenceList(self,start,end):
-        result = []
-        for i in range(start,end):
-            if self.match(i):
-                result.append(i)
-        return result
-
+        return [i for i in range(start,end) if self.match(i)]
+    
     def toIntervalList(self,start,end):
         # maybe this could be implemented better...
         result = []
