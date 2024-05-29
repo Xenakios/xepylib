@@ -15,3 +15,52 @@ Primes = [ 2, 3, 5, 7, 11, 13, 17, 19, 23, 29,
 811, 821, 823, 827, 829, 839, 853, 857, 859, 863,
 877, 881, 883, 887, 907, 911, 919, 929, 937, 941,
 947, 953, 967, 971, 977, 983, 991, 997, 1009, 1013]
+
+MIDI_0_FREQ = 8.17579891564371
+
+# This is a particularly gnarly thing, perhaps a better implementation could be
+# done, but for now...
+# Given a Sieve, equal division of octave number and a center frequency in Hz
+# This will produce a tuning table for the 128 MIDI keys, trying its best
+# to keep things tidy
+
+def sieve_to_tuning_table(sv,edo,centerfreq):
+    """Incomplete implementation! This does not yet produce a tuning table suitable for MIDI key mapping"""
+    def tun_tab_loop(sv,edo,direction,targetlist,centerfreq):
+        i = 0
+        while True:
+            if sv.contains(i):
+                hz = centerfreq*2.0**(i/float(edo))
+                if hz<MIDI_0_FREQ or hz>20000.0:
+                    # print(f'{i} {hz}')
+                    break
+                else:
+                    if targetlist.count(hz) == 0:
+                        targetlist.append(hz)    
+            i += direction
+            if abs(i>2048):
+                break
+    # first generate all frequencies in audible range
+    frequencies = []
+    tun_tab_loop(sv,edo,-1,frequencies,centerfreq)
+    tun_tab_loop(sv,edo,1,frequencies,centerfreq)
+    frequencies.sort()
+    temp = 30000.0
+    closest = None
+    for i in range(0,len(frequencies)-1):
+        diff = abs(frequencies[i]-centerfreq)
+        if diff<=temp:
+            closest = i
+            temp = diff
+    if closest != None:
+        print(f"closest index to {centerfreq} Hz is {closest} at {frequencies[closest]} Hz")
+    else:
+        print(f"could not determine closest index to {centerfreq}")
+    return frequencies
+
+pcNames = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
+
+def midiKeyToName(key):
+    pc = key % 12
+    oct = key // 12
+    return f"{pcNames[pc]}{oct-1}"
