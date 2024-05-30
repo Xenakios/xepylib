@@ -47,16 +47,22 @@ def sieve_to_tuning_table(sv,edo,centerfreq):
     frequencies.sort()
     temp = 30000.0
     closest = None
-    for i in range(0,len(frequencies)-1):
+    for i in range(0,len(frequencies)):
         diff = abs(frequencies[i]-centerfreq)
         if diff<=temp:
             closest = i
             temp = diff
-    if closest != None:
-        print(f"closest index to {centerfreq} Hz is {closest} at {frequencies[closest]} Hz")
-    else:
+    if closest == None:
         print(f"could not determine closest index to {centerfreq}")
-    return frequencies
+        return []
+    result = [0] * 128
+    for i in range(closest,-1,-1):
+        if i>=0 and i<len(frequencies):
+            print(frequencies[i])
+    for i in range(closest,128):
+        if i>=0 and i<len(frequencies):
+            print(frequencies[i])
+    return result
 
 pcNames = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"]
 
