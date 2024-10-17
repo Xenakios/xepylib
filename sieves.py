@@ -10,7 +10,7 @@ class SV:
         else:
             self.contains = lambda n : False
         
-    def dump(self, start = 0, n = 101, chars=".■", ruler=False):
+    def outputToConsole(self, start = 0, n = 101, chars=".■", ruler=False):
         result = ""
         for i in range(start,start+n):
             if (self.contains(i))==True:
