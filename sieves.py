@@ -2,7 +2,7 @@
 
 
 class SV:
-    def __init__(self, a, b):
+    def __init__(self, a=1, b=0):
         self.a = a
         self.b = b
         if a > 0 and b >= 0:
@@ -11,22 +11,22 @@ class SV:
         else:
             self.contains = lambda n: False
 
-    def outputToConsole(self, start=0, n=101, chars=".■", ruler=False):
+    def toString(self, start=0, n=101, chars=".■", ruler=False) -> str:
         result = ""
         for i in range(start, start + n):
             if self.contains(i):
                 result = result + chars[1]
             else:
                 result = result + chars[0]
-        print(result)
+        result += "\n"
         if ruler:
-            result = ""
             i = start
             while i < start + n:
                 if i % 5 == 0:
                     result += f"{i:<5}"
                 i += 1
-            print(result)
+            
+        return result
 
     def __neg__(self):
         result = SV(0, 0)
@@ -48,17 +48,17 @@ class SV:
         result.contains = lambda n: (self.contains(n) ^ other.match(n))
         return result
 
-    def toSequenceList(self, start, end):
+    def toSequenceList(self, start:int, end:int):
         return [i for i in range(start, end) if self.contains(i)]
 
-    def asGenerator(self, start):
+    def asGenerator(self, start=0):
         """Infinite generator from start"""
         while True:
             if self.contains(start):
                 yield start
             start += 1
 
-    def toIntervalList(self, start, end):
+    def toIntervalList(self, start:int, end:int):
         # Seems inefficient to get the temp list first, but it's fast enough
         # up to hundreds of thousands of entries
         temp = self.toSequenceList(start, end)
