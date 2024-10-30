@@ -18,14 +18,14 @@ class SV:
                 result = result + chars[1]
             else:
                 result = result + chars[0]
-        result += "\n"
         if ruler:
+            result += "\n"
             i = start
             while i < start + n:
                 if i % 5 == 0:
                     result += f"{i:<5}"
                 i += 1
-            
+
         return result
 
     def __neg__(self):
@@ -48,7 +48,7 @@ class SV:
         result.contains = lambda n: (self.contains(n) ^ other.match(n))
         return result
 
-    def toSequenceList(self, start:int, end:int):
+    def toList(self, start: int, end: int) -> list[int]:
         return [i for i in range(start, end) if self.contains(i)]
 
     def asGenerator(self, start=0):
@@ -58,10 +58,10 @@ class SV:
                 yield start
             start += 1
 
-    def toIntervalList(self, start:int, end:int):
+    def toIntervalList(self, start: int, end: int) -> list[int]:
         # Seems inefficient to get the temp list first, but it's fast enough
         # up to hundreds of thousands of entries
-        temp = self.toSequenceList(start, end)
+        temp = self.toList(start, end)
         if len(temp) < 2:
             return []
         return [temp[i + 1] - temp[i] for i in range(0, len(temp) - 1)]
