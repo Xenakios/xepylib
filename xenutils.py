@@ -210,7 +210,7 @@ def sieve_to_tuning_table(sv, edo, centerfreq):
         if diff <= temp:
             closest = i
             temp = diff
-    if closest == None:
+    if closest is None:
         print(f"could not determine closest index to {centerfreq}")
         return []
     result = [0] * 128
@@ -226,7 +226,7 @@ def sieve_to_tuning_table(sv, edo, centerfreq):
 pcNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
-def midiKeyToName(key):
+def midiKeyToName(key:int) -> str:
     pc = key % 12
     oct = key // 12
     return f"{pcNames[pc]}{oct-1}"
@@ -234,7 +234,7 @@ def midiKeyToName(key):
 
 def map_value(
     value: float, leftMin: float, leftMax: float, rightMin: float, rightMax: float
-):
+) -> float:
     # Figure out how 'wide' each range is
     leftSpan = leftMax - leftMin
     rightSpan = rightMax - rightMin
