@@ -58,7 +58,7 @@ class SV:
                 yield start
             start += 1
 
-    def interval_generator(self, start: int = 0):
+    def interval_generator(self, start: int = 0, end=None):
         prior = None
         i = start
         while True:
@@ -69,6 +69,8 @@ class SV:
                 yield diff
                 prior = i
             i += 1
+            if end is not None and i >= end:
+                break
 
     def toIntervalList(self, start: int, end: int) -> list[int]:
         result = []
