@@ -1,4 +1,5 @@
-# Minimal implementation of the Iannis Xenakis sieves and their operations
+# Minimal implementation for generating from the Iannis Xenakis sieves and operations on them.
+
 
 
 class SV:
@@ -11,7 +12,7 @@ class SV:
         else:
             self.contains = lambda n: False
 
-    def toString(self, start=0, n=101, chars=".■", ruler=False) -> str:
+    def visualization_string(self, start=0, n=101, chars=".■", ruler=False) -> str:
         result = ""
         for i in range(start, start + n):
             if self.contains(i):
@@ -58,7 +59,7 @@ class SV:
                 yield start
             start += 1
 
-    def interval_generator(self, start: int = 0, end=None):
+    def interval_generator(self, start: int = 0, end: int = 10000):
         prior = None
         i = start
         while True:
@@ -69,7 +70,7 @@ class SV:
                 yield diff
                 prior = i
             i += 1
-            if end is not None and i >= end:
+            if i >= end:
                 break
 
     def toIntervalList(self, start: int, end: int) -> list[int]:
