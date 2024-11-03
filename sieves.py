@@ -2,7 +2,7 @@
 
 
 class SV:
-    def __init__(self, a=1, b=0):
+    def __init__(self, a: int = 1, b: int = 0):
         self.a = a
         self.b = b
         if a > 0 and b >= 0:
@@ -58,13 +58,30 @@ class SV:
                 yield start
             start += 1
 
+    def interval_generator(self, start: int = 0):
+        prior = None
+        i = start
+        while True:
+            if prior is None and self.contains(i):
+                prior = i
+            elif self.contains(i):
+                diff = i - prior
+                yield diff
+                prior = i
+            i += 1
+
     def toIntervalList(self, start: int, end: int) -> list[int]:
-        # Seems inefficient to get the temp list first, but it's fast enough
-        # up to hundreds of thousands of entries
-        temp = self.toList(start, end)
-        if len(temp) < 2:
-            return []
-        return [temp[i + 1] - temp[i] for i in range(0, len(temp) - 1)]
+        result = []
+        prior = None
+        for i in range(start, end):
+            if prior is None and self.contains(i):
+                prior = i
+                continue
+            if self.contains(i):
+                diff = i - prior
+                result.append(diff)
+                prior = i
+        return result
 
 
 if __name__ == "__main__":
