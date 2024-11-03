@@ -1,7 +1,6 @@
 # Minimal implementation for generating from the Iannis Xenakis sieves and operations on them.
 
 
-
 class SV:
     def __init__(self, a: int = 1, b: int = 0):
         self.a = a
@@ -46,7 +45,7 @@ class SV:
 
     def __xor__(self, other):
         result = SV(0, 0)
-        result.contains = lambda n: (self.contains(n) ^ other.match(n))
+        result.contains = lambda n: (self.contains(n) ^ other.contains(n))
         return result
 
     def toList(self, start: int, end: int) -> list[int]:
