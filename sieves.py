@@ -11,6 +11,9 @@ class SV:
         else:
             self.contains = lambda n: False
 
+    def __contains__(self, x: int) -> bool:
+        return self.contains(x)
+
     def visualization_string(self, start=0, n=101, chars=".■", ruler=False) -> str:
         result = ""
         for i in range(start, start + n):
