@@ -226,7 +226,7 @@ def sieve_to_tuning_table(sv, edo, centerfreq):
 pcNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
-def midiKeyToName(key:int) -> str:
+def midiKeyToName(key: int) -> str:
     pc = key % 12
     oct = key // 12
     return f"{pcNames[pc]}{oct-1}"
@@ -235,12 +235,7 @@ def midiKeyToName(key:int) -> str:
 def map_value(
     value: float, leftMin: float, leftMax: float, rightMin: float, rightMax: float
 ) -> float:
-    # Figure out how 'wide' each range is
     leftSpan = leftMax - leftMin
     rightSpan = rightMax - rightMin
-
-    # Convert the left range into a 0-1 range (float)
     valueScaled = float(value - leftMin) / float(leftSpan)
-
-    # Convert the 0-1 range into a value in the right range.
     return rightMin + (valueScaled * rightSpan)
