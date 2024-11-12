@@ -233,9 +233,42 @@ def midiKeyToName(key: int) -> str:
 
 
 def map_value(
-    value: float, leftMin: float, leftMax: float, rightMin: float, rightMax: float
+    in_value: float,
+    source_min: float,
+    source_max: float,
+    target_min: float,
+    target_max: float,
 ) -> float:
-    leftSpan = leftMax - leftMin
-    rightSpan = rightMax - rightMin
-    valueScaled = float(value - leftMin) / float(leftSpan)
-    return rightMin + (valueScaled * rightSpan)
+    leftSpan = source_max - source_min
+    rightSpan = target_max - target_min
+    valueScaled = float(in_value - source_min) / float(leftSpan)
+    return target_min + (valueScaled * rightSpan)
+
+
+# yes, could be written with the minmax thing but not yet...
+def clamp(in_value: float, min_value: float, max_value: float) -> float:
+    if in_value < min_value:
+        return min_value
+    if in_value > max_value:
+        return max_value
+    return in_value
+
+
+# probably not the best implementation, but let's have at least something
+def quantize_to_closest(val: float, grid: list[float]):
+    if len(grid) == 0:
+        return val
+    if len(grid) == 1:
+        return grid[0]
+    if val < grid[0]:
+        return grid[0]
+    if val > grid[-1]:
+        return grid[-1]
+    maxdiff = grid[-1] - grid[0]
+    closest_element = None
+    for i in grid:
+        diff = abs(i - val)
+        if diff < maxdiff:
+            maxdiff = diff
+            closest_element = i
+    return closest_element
