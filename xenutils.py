@@ -247,10 +247,19 @@ def map_value(
 
 # yes, could be written with the minmax thing but not yet...
 def clamp(in_value: float, min_value: float, max_value: float) -> float:
-    if in_value < min_value:
-        return min_value
-    if in_value > max_value:
-        return max_value
+    return max(min_value, min(in_value, max_value))
+
+
+def reflect(in_value: float, min_value: float, max_value: float) -> float:
+    count = 0
+    while in_value < min_value or in_value > max_value:
+        if in_value < min_value:
+            in_value = min_value + (min_value - in_value)
+        if in_value > max_value:
+            in_value = max_value + (max_value - in_value)
+        count += 1
+        if count > 1000:
+            return clamp(in_value, min_value, max_value)
     return in_value
 
 
@@ -264,11 +273,15 @@ def quantize_to_closest(val: float, grid: list[float]):
         return grid[0]
     if val > grid[-1]:
         return grid[-1]
-    maxdiff = grid[-1] - grid[0]
+    mindiff = grid[-1] - grid[0]
     closest_element = None
     for i in grid:
         diff = abs(i - val)
-        if diff < maxdiff:
-            maxdiff = diff
+        if diff < mindiff:
+            mindiff = diff
             closest_element = i
     return closest_element
+
+
+if __name__ == "__main__":
+    pass
