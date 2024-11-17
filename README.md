@@ -31,7 +31,8 @@ for i in range(0,2):
 ```
 
 Major/diatonic scale, assuming elementary displacement is 1 semitone,
-from Xenakis 1990
+from Xenakis 1990. This is obviously a very convoluted way to get the
+major scale pattern, but it's an example...
 
 ```
 sv = (
@@ -48,7 +49,7 @@ print([xu.midi_key_to_str(60 + k) for k in pitchlist])
 # or the B3 below
 print([xu.midi_key_to_str(59 + k) for k in pitchlist])
 ```
-Outputs
+Outputs :
 ```
 [-12, -10, -8, -7, -5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12]
 ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
