@@ -1,3 +1,7 @@
+# Super simple serialism related stuff, probably doesn't work like
+# the standard serialism/dodecaphony stuff, this only for my own use really...
+
+
 def transform_row(
     row: list[int], transpose=0, reversed=False, inverted=False
 ) -> list[int]:
