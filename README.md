@@ -40,16 +40,19 @@ sv = (
     + SV(3, 2) * SV(4, 2)
     + -SV(3, 0) * SV(4, 3)
 )
-pitchlist = sv.get_list(60, 73)
+# list output can start from negative numbers
+pitchlist = sv.get_list(-12, 13)
 print(pitchlist)
-print([xu.midi_key_to_str(k) for k in pitchlist])
+# but MIDI keys can't be negative, so center around middle C4 (60)
+print([xu.midi_key_to_str(60 + k) for k in pitchlist])
+# or the B3 below
+print([xu.midi_key_to_str(59 + k) for k in pitchlist])
 ```
-
 Outputs
-
 ```
-[60, 62, 64, 65, 67, 69, 71, 72]
-['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
+[-12, -10, -8, -7, -5, -3, -1, 0, 2, 4, 5, 7, 9, 11, 12]
+['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
+['B2', 'C#3', 'D#3', 'E3', 'F#3', 'G#3', 'A#3', 'B3', 'C#4', 'D#4', 'E4', 'F#4', 'G#4', 'A#4', 'B4']
 ```
 
 Rough matplotlib visualization :
