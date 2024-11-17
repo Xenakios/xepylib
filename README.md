@@ -1,7 +1,7 @@
 Sieves examples
 
 ```
-from xepylib import xenutils
+from xepylib import xenutils as xu
 from xepylib.sieves import Sieve as SV
 ```
 
@@ -42,7 +42,7 @@ sv = (
 )
 pitchlist = sv.get_list(60, 73)
 print(pitchlist)
-print([xenutils.midi_key_to_name(k) for k in pitchlist])
+print([xu.midi_key_to_name(k) for k in pitchlist])
 
 ```
 
