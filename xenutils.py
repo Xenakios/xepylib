@@ -226,10 +226,12 @@ def sieve_to_tuning_table(sv, edo, centerfreq):
 pcNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
-def midi_key_to_name(key: int) -> str:
+def midi_key_to_str(key: int) -> str:
+    if key < 0 or key > 127:
+        raise ValueError(f"{key} outside allowed range 0..127")
     pc = key % 12
-    oct = key // 12
-    return f"{pcNames[pc]}{oct-1}"
+    octave = key // 12
+    return f"{pcNames[pc]}{octave-1}"
 
 
 def map_value(
@@ -245,7 +247,6 @@ def map_value(
     return target_min + (valueScaled * rightSpan)
 
 
-# yes, could be written with the minmax thing but not yet...
 def clamp(in_value: float, min_value: float, max_value: float) -> float:
     return max(min_value, min(in_value, max_value))
 

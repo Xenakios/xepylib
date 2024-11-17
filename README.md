@@ -42,8 +42,7 @@ sv = (
 )
 pitchlist = sv.get_list(60, 73)
 print(pitchlist)
-print([xu.midi_key_to_name(k) for k in pitchlist])
-
+print([xu.midi_key_to_str(k) for k in pitchlist])
 ```
 
 Outputs
