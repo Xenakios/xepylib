@@ -52,4 +52,13 @@ Outputs
 ['C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
 ```
 
+Rough matplotlib visualization :
+```
+# from matplotlib import pyplot as plt
+sv = SV(11, 0) + SV(8, 3) + SV(8, 7)
+xs = [i for i in range(0,100)]
+ys = [1 if i in sv else None for i in xs]
+plt.scatter(xs, ys)
+plt.show()
 
+```
