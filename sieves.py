@@ -51,10 +51,18 @@ class SV:
         result.contains = lambda n: (self.contains(n) ^ other.contains(n))
         return result
 
-    def toList(self, start: int, end: int) -> list[int]:
+    def get_list(self, start: int, end: int) -> list[int]:
+        """Get as list between start (inclusive) and end (exclusive). 
+        
+        (SV(12, 1) + SV(30, 0)).get_list(0, 30) produces
+        [0, 1, 13, 25]
+
+        (SV(12, 1) + SV(30, 0)).get_list(1, 31) produces
+        [1, 13, 25, 30]
+        """
         return [i for i in range(start, end) if self.contains(i)]
 
-    def asGenerator(self, start=0):
+    def get_generator(self, start=0):
         """Infinite generator from start"""
         while True:
             if self.contains(start):
@@ -75,7 +83,15 @@ class SV:
             if i >= end:
                 break
 
-    def toIntervalList(self, start: int, end: int) -> list[int]:
+    def get_intervals(self, start: int, end: int) -> list[int]:
+        """Get list of intervals between start and end.
+
+        (SV(12, 1) + SV(30, 0)).get_intervals(0, 31) produces :
+        [1, 12, 12, 5]
+        
+        (SV(4, 1) + SV(3, 0)).get_intervals(0, 13) produces :
+        [1, 2, 2, 1, 3, 3]
+        """
         result = []
         prior = None
         for i in range(start, end):

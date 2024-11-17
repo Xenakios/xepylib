@@ -226,7 +226,7 @@ def sieve_to_tuning_table(sv, edo, centerfreq):
 pcNames = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
 
 
-def midiKeyToName(key: int) -> str:
+def midi_key_to_name(key: int) -> str:
     pc = key % 12
     oct = key // 12
     return f"{pcNames[pc]}{oct-1}"
