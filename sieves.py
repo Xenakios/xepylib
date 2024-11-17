@@ -1,7 +1,7 @@
 # Minimal implementation for generating from the Iannis Xenakis sieves and operations on them.
 
 
-class SV:
+class Sieve:
     def __init__(self, a: int = 1, b: int = 0):
         self.a = a
         self.b = b
@@ -32,28 +32,28 @@ class SV:
         return result
 
     def __neg__(self):
-        result = SV(0, 0)
+        result = Sieve(0, 0)
         result.contains = lambda n: (not (self.contains(n)))
         return result
 
     def __mul__(self, other):
-        result = SV(0, 0)
+        result = Sieve(0, 0)
         result.contains = lambda n: (self.contains(n) and other.contains(n))
         return result
 
     def __add__(self, other):
-        result = SV(0, 0)
+        result = Sieve(0, 0)
         result.contains = lambda n: (self.contains(n) or other.contains(n))
         return result
 
     def __xor__(self, other):
-        result = SV(0, 0)
+        result = Sieve(0, 0)
         result.contains = lambda n: (self.contains(n) ^ other.contains(n))
         return result
 
     def get_list(self, start: int, end: int) -> list[int]:
-        """Get as list between start (inclusive) and end (exclusive). 
-        
+        """Get as list between start (inclusive) and end (exclusive).
+
         (SV(12, 1) + SV(30, 0)).get_list(0, 30) produces
         [0, 1, 13, 25]
 
@@ -88,7 +88,7 @@ class SV:
 
         (SV(12, 1) + SV(30, 0)).get_intervals(0, 31) produces :
         [1, 12, 12, 5]
-        
+
         (SV(4, 1) + SV(3, 0)).get_intervals(0, 13) produces :
         [1, 2, 2, 1, 3, 3]
         """
