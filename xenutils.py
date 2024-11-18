@@ -286,41 +286,26 @@ def quantize_to_closest(val: float, grid: list[float]):
     return closest_element
 
 
-def gen_pdarray_preset(data: list):
+def gen_pdarray_preset(data: list, outrange: int = 1):
     if len(data) == 0 or len(data) > 2048:
         raise RuntimeError("data is empty or too large")
     for i in range(len(data)):
         data[i] = clamp(data[i], 0.0, 1.0)
-    txt = r"""{
-    "plugin": "PdArray",
-    "model": "Array",
-    "version": "2.1.1",
-    "params": [
-        {
-        "value": 2.0,
-        "id": 0
-        },
-        {
-        "value": 0.0,
-        "id": 1
-        },
-        {
-        "value": 0.0,
-        "id": 2
-        }
-    ],
-    "data": {
-        "enableEditing": true,
+    template = {"plugin": "PdArray", "model": "Array", "version": "2.1.1"}
+    template["params"] = [
+        {"value": 2.0, "id": 0},
+        {"value": outrange, "id": 1},
+        {"value": 0.0, "id": 2},
+    ]
+    template["data"] = {
+        "enableEditing": True,
         "boundaryMode": 2,
         "recMode": 0,
         "lastLoadedPath": "",
-        "arrayData": [
-        
-        ]
-    }}"""
-    j = json.loads(txt)
-    j["data"]["arrayData"] = data
-    return json.dumps(j)
+        "arrayData": [],
+    }
+    template["data"]["arrayData"] = data
+    return json.dumps(template, indent=2)
 
 
 if __name__ == "__main__":
