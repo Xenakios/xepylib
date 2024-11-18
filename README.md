@@ -1,11 +1,11 @@
-Sieves examples
+# Sieves examples
 
 ```
 from xepylib import xenutils as xu
 from xepylib.sieves import Sieve as SV
 ```
 
-Chromatic scale, assuming elementary displacement is 1 semitone
+## Chromatic scale, assuming elementary displacement is 1 semitone
 
 ```
 sv = SV(1,0)
@@ -18,7 +18,7 @@ Outputs
 [60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72]
 ```
 
-Whole tone scale, at the 2 possible transpositions
+## Whole tone scale, at the 2 possible transpositions
 
 ```
 for i in range(0,2):
@@ -30,9 +30,10 @@ for i in range(0,2):
 [61, 63, 65, 67, 69, 71, 73]
 ```
 
-Major scale, assuming elementary displacement is 1 semitone,
-from Xenakis 1990. This is obviously a very convoluted way to get the
-major scale pattern, but it's an example...
+## Major scale, assuming elementary displacement is 1 semitone, from Xenakis 1990. 
+This is obviously a very convoluted way to get the
+major scale pattern, but it's an example of how to get the period 12 from
+the smaller periods 3 and 4. 
 
 ```
 sv = (
@@ -55,8 +56,13 @@ Outputs :
 ['C3', 'D3', 'E3', 'F3', 'G3', 'A3', 'B3', 'C4', 'D4', 'E4', 'F4', 'G4', 'A4', 'B4', 'C5']
 ['B2', 'C#3', 'D#3', 'E3', 'F#3', 'G#3', 'A#3', 'B3', 'C#4', 'D#4', 'E4', 'F#4', 'G#4', 'A#4', 'B4']
 ```
+Alternatively the major scale could be written like :
+```
+SV(12,0) + SV(12,2) + SV(12,4) + SV(12,5) + SV(12,7) + SV(12,9) + SV(12,11)
+```
+but that doesn't provide any deeper insight to the pattern.
 
-Rough matplotlib visualization :
+## Rough matplotlib visualization :
 ```
 # from matplotlib import pyplot as plt
 sv = SV(11, 0) + SV(8, 3) + SV(8, 7)
