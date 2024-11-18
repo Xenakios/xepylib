@@ -287,6 +287,8 @@ def quantize_to_closest(val: float, grid: list[float]):
 
 
 def gen_pdarray_preset(data: list):
+    if len(data) == 0 or len(data) > 2048:
+        raise RuntimeError("data is empty or too large")
     for i in range(len(data)):
         data[i] = clamp(data[i], 0.0, 1.0)
     txt = r"""{
