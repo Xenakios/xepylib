@@ -1,3 +1,5 @@
+import json
+
 Primes = [
     2,
     3,
@@ -282,6 +284,41 @@ def quantize_to_closest(val: float, grid: list[float]):
             mindiff = diff
             closest_element = i
     return closest_element
+
+
+def gen_pdarray_preset(data: list):
+    for i in range(len(data)):
+        data[i] = clamp(data[i], 0.0, 1.0)
+    txt = r"""{
+    "plugin": "PdArray",
+    "model": "Array",
+    "version": "2.1.1",
+    "params": [
+        {
+        "value": 2.0,
+        "id": 0
+        },
+        {
+        "value": 0.0,
+        "id": 1
+        },
+        {
+        "value": 0.0,
+        "id": 2
+        }
+    ],
+    "data": {
+        "enableEditing": true,
+        "boundaryMode": 2,
+        "recMode": 0,
+        "lastLoadedPath": "",
+        "arrayData": [
+        
+        ]
+    }}"""
+    j = json.loads(txt)
+    j["data"]["arrayData"] = data
+    return json.dumps(j)
 
 
 if __name__ == "__main__":
