@@ -51,6 +51,11 @@ class Sieve:
         result.contains = lambda n: (self.contains(n) ^ other.contains(n))
         return result
 
+    def __repr__(self):
+        if self.a > 0 and self.b >= 0:
+            return f"Sieve({self.a}, {self.b})"
+        return f"Compound Sieve id={id(self)}, proper repr not available"
+
     def get_list(self, start: int, end: int) -> list[int]:
         """Get as list between start (inclusive) and end (exclusive).
 
