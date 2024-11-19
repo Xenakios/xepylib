@@ -1,4 +1,6 @@
 import json
+import math
+import random
 
 Primes = [
     2,
@@ -234,6 +236,12 @@ def midi_key_to_str(key: int) -> str:
     pc = key % 12
     octave = key // 12
     return f"{pcNames[pc]}{octave-1}"
+
+
+def random_cauchy(location: float = 0.0, scale: float = 1.0, z: float = None):
+    if z is None:
+        z = random.random()
+    return location + scale * math.tan(math.pi * (z - 0.5))
 
 
 def map_value(

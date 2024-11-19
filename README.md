@@ -30,10 +30,10 @@ for i in range(0,2):
 [61, 63, 65, 67, 69, 71, 73]
 ```
 
-## Major scale, assuming elementary displacement is 1 semitone, from Xenakis 1990. 
-This is obviously a very convoluted way to get the
-major scale pattern, but it's an example of how to get the period 12 from
-the smaller periods 3 and 4. 
+## Major scale,
+assuming elementary displacement is 1 semitone, from Xenakis 1990. This is obviously 
+a very convoluted way to get the major scale pattern, but it's an example of how 
+to get the desired period 12 sequence from the smaller periods 3 and 4. 
 
 ```
 sv = (
