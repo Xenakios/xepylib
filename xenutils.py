@@ -239,8 +239,13 @@ def midi_key_to_str(key: int) -> str:
 
 
 def random_cauchy(location: float = 0.0, scale: float = 1.0, z: float = None):
+    """Generate random number from Cauchy distribution.
+    If z in range 0..1 inclusive is provided it will be used instead of random.random()"""
     if z is None:
         z = random.random()
+    else:
+        if z < 0.0 or z > 1.0:
+            raise ValueError("z should be between 0.0 and 1.0, inclusive")
     return location + scale * math.tan(math.pi * (z - 0.5))
 
 
