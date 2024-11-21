@@ -321,5 +321,12 @@ def gen_pdarray_preset(data: list, outrange: int = 1):
     return json.dumps(template, indent=2)
 
 
+def plot(plt, xs: list, ys: list):
+    plt.style.use("dark_background")
+    plt.plot(xs, ys)
+    plt.get_current_fig_manager().window.state("zoomed")
+    plt.show()
+
+
 if __name__ == "__main__":
     pass
