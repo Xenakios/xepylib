@@ -321,10 +321,11 @@ def gen_pdarray_preset(data: list, outrange: int = 1):
     return json.dumps(template, indent=2)
 
 
-def plot(plt, xs: list, ys: list):
+def plot(plt, xs: list, ys: list, maximized:bool=True):
     plt.style.use("dark_background")
     plt.plot(xs, ys)
-    plt.get_current_fig_manager().window.state("zoomed")
+    if maximized:
+        plt.get_current_fig_manager().window.state("zoomed")
     plt.show()
 
 
