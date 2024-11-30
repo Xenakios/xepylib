@@ -18,9 +18,9 @@ class Sieve:
         result = ""
         for i in range(start, start + n):
             if self.contains(i):
-                result = result + chars[1]
+                result += chars[1]
             else:
-                result = result + chars[0]
+                result += chars[0]
         if ruler:
             result += "\n"
             i = start
@@ -56,7 +56,7 @@ class Sieve:
             return f"Sieve({self.a}, {self.b})"
         return f"Compound Sieve id={id(self)}, detailed repr not available"
 
-    def get_list(self, start: int, end: int) -> list[int]:
+    def get_list(self, start: int, end: int, shift: int = 0) -> list[int]:
         """Get as list between start (inclusive) and end (exclusive).
 
         (SV(12, 1) + SV(30, 0)).get_list(0, 30) produces
@@ -65,7 +65,7 @@ class Sieve:
         (SV(12, 1) + SV(30, 0)).get_list(1, 31) produces
         [1, 13, 25, 30]
         """
-        return [i for i in range(start, end) if self.contains(i)]
+        return [i + shift for i in range(start, end) if self.contains(i)]
 
     def get_generator(self, start=0):
         """Infinite generator from start"""
