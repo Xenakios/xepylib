@@ -278,6 +278,17 @@ def reflect(in_value: float, min_value: float, max_value: float) -> float:
             return clamp(in_value, min_value, max_value)
     return in_value
 
+def wrap(in_value: float, min_value: float, max_value: float) -> float:
+    count = 0
+    while in_value < min_value or in_value > max_value:
+        if in_value < min_value:
+            in_value = max_value - (min_value - in_value)
+        if in_value > max_value:
+            in_value = min_value - (max_value - in_value)
+        count += 1
+        if count > 1000:
+            return clamp(in_value, min_value, max_value)
+    return in_value
 
 # probably not the best implementation, but let's have at least something
 def quantize_to_closest(val: float, grid: list[float]):
