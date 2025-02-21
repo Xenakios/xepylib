@@ -1,6 +1,7 @@
 import json
 import math
 import random
+import typing
 
 Primes = [
     2,
@@ -340,6 +341,32 @@ def plot(plt, xs: list, ys: list, maximized: bool = True, scatter: bool = False)
         plt.plot(xs, ys)
     if maximized:
         plt.get_current_fig_manager().window.state("zoomed")
+    plt.show()
+
+def plot_function(
+    plt,
+    func: typing.Callable[[float], float],
+    inmin: float,
+    inmax: float,
+    numsteps: int = 500,
+    scatter: bool = False,
+) -> None:
+    xs = []
+    ys = []
+    for i in range(numsteps):
+        x = inmin + ((inmax - inmin) / numsteps) * i
+        xs.append(x)
+        try:
+            y = func(x)
+            ys.append(y)
+        except ValueError:
+            ys.append(None)
+    plt.style.use("dark_background")
+    plt.get_current_fig_manager().window.state("zoomed")
+    if scatter:
+        plt.scatter(xs, ys)
+    else:
+        plt.plot(xs, ys)
     plt.show()
 
 
