@@ -238,6 +238,27 @@ def midi_key_to_str(key: int) -> str:
     octave = key // 12
     return f"{pcNames[pc]}{octave-1}"
 
+just_intonation_intervals = {
+    "unison": (1, 1),
+    "octave": (2, 1),
+    "perfect_fifth": (3, 2),
+    "perfect_fourth": (4, 3),
+    "major_third": (5, 4),
+    "minor_third": (6, 5),
+    "major_second_9:8": (9, 8),
+    "major_second_10:9": (10, 9),
+    "minor_seventh_16:9": (16, 9),
+    "major_seventh": (15, 8),
+    "major_sixth": (5, 3),
+    "minor_sixth": (8, 5),
+    "minor_seventh_9:5": (9, 5),
+    "harmonic_seventh": (7, 4),
+    "septimal_minor_third": (8, 7),
+    "undecimal_fourth": (11, 8),
+    "tridecimal_sixth": (13, 8),
+    "neutral_third": (11, 9),
+}
+
 
 def random_cauchy(location: float = 0.0, scale: float = 1.0, z: float = None):
     """Generate random number from Cauchy distribution.
@@ -350,6 +371,7 @@ def plot_function(
     inmax: float,
     numsteps: int = 500,
     scatter: bool = False,
+    maximize_window:bool = True
 ) -> None:
     xs = []
     ys = []
@@ -362,7 +384,8 @@ def plot_function(
         except ValueError:
             ys.append(None)
     plt.style.use("dark_background")
-    plt.get_current_fig_manager().window.state("zoomed")
+    if maximize_window:
+        plt.get_current_fig_manager().window.state("zoomed")
     if scatter:
         plt.scatter(xs, ys)
     else:
